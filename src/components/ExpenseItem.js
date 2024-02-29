@@ -1,9 +1,10 @@
 import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
-import { TiDelete } from 'react-icons/ti';
+import { TiDelete } from "react-icons/ti";
+import { IoMdAddCircle, IoMdRemoveCircle } from "react-icons/io";
 
 const ExpenseItem = (props) => {
-  const { dispatch } = useContext(AppContext);
+  const { dispatch, currency } = useContext(AppContext);
 
   const handleDeleteExpense = () => {
     dispatch({
@@ -15,7 +16,8 @@ const ExpenseItem = (props) => {
   const increaseAllocation = (name) => {
     const expense = {
       name: name,
-      const: 10,
+      cost: parseInt(10),
+
     };
 
     dispatch({
@@ -23,15 +25,39 @@ const ExpenseItem = (props) => {
       payload: expense,
     });
   };
+  const decreaseAllocation = (name) => {
+    const expense = {
+      name: name,
+      cost: parseInt(10),
+    };
+
+    dispatch({
+      type: "RED_EXPENSE",
+      payload: expense,
+    });
+  };
 
   return (
     <tr>
       <td>{props.name}</td>
-      <td>{props.cost}</td>
+      <td>{currency + props.cost}</td>
       <td>
-        <button onClick={(event) => increaseAllocation(props.name)}>+</button>
+        <IoMdAddCircle
+          size="1.5em"
+          style={{ color: "green" }}
+          onClick={(event) => increaseAllocation(props.name)}
+        />
       </td>
-      <td><TiDelete size='1.5em' onClick={handleDeleteExpense}></TiDelete></td>
+      <td>
+        <IoMdRemoveCircle
+          size="1.5em"
+          style={{ color: "red" }}
+          onClick={(event) => decreaseAllocation(props.name)}
+        />
+      </td>
+      <td>
+        <TiDelete size="1.5em" onClick={handleDeleteExpense}></TiDelete>
+      </td>
     </tr>
   );
 };

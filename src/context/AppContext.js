@@ -58,6 +58,7 @@ export const AppReducer = (state, action) => {
                 budget
             };
         case 'SET_BUDGET':
+            console.log(action.payload);
             action.type = "DONE";
             state.budget = action.payload;
 
@@ -78,7 +79,7 @@ export const AppReducer = (state, action) => {
 
 // 1. Sets the initial state when the app loads
 const initialState = {
-    budget: 2000,
+    budget: 20000,
     expenses: [
         { id: "Marketing", name: 'Marketing', cost: 50 },
         { id: "Finance", name: 'Finance', cost: 300 },
